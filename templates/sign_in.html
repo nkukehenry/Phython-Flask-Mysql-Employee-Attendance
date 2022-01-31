@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attendnace FBAS | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="{{ url_for('static',filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='dist/css/adminlte.min.css') }}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="{{ url_for('static',filename='images/logo.png') }}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form action="{{ url_for('index') }}" method="post">
+        <div class="input-group mb-3">
+          <input type="text" name="username" class="form-control" placeholder="Username" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+<!-- jQuery -->
+<script src="{{ url_for('static',filename='plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static',filename='dist/js/adminlte.min.js') }}"></script>
+</body>
+</html>

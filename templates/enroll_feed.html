@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{%block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <br>
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Camera focus on the enrolled!</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row card-body justify-content-center">
+
+            <dvi class="row col-md-6">
+                    <div class="hidden try col-md-6">
+                        <a class="btn btn-success" href="{{ url_for('get_enroll_feed',id=id)}}"><i class="fa fa-camera"></i> TRY AGAIN</a>
+                    </div>
+                    <div class="hidden try col-md-6">
+                        <a class="btn btn-success" href="{{ url_for('employees')}}"><i class="fa fa-arrow-right"></i> FINISH</a>
+                    </div>
+                 <div class="col-md-12 justify-content-center text-center">
+                     <br>
+                        <h5 class="text-center text-info msg">Capturing facial features,please wait...</h5>
+                 </div>
+
+            </dvi>
+             <div class="col-md-6">
+
+                 <img class="img img-thumbnail" src="{{ url_for('get_employee_feed',id=id) }}" alt="Loading..." width="100%">
+             </div>
+        </div>
+        <!-- /.card-body -->
+
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+<script>
+    setTimeout(function(){
+       $('.img').attr('src',"{{ url_for('static',filename='feed.jpg')}}" );
+       $('.msg').hide();
+       $('.try').show();
+    },28000)
+</script>
+
+
+{% endblock %}

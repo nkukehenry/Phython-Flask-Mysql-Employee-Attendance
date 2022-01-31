@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{%block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='plugins/chart.js/Chart.css') }}">
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Individual Attendance Report</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ url_for('attendance') }}">Home</a></li>
+              <li class="breadcrumb-item active">Employee Attendance</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+         <div class="card">
+            <div class="card-header">
+              <h3 class="card-title text-muted">
+                 <i class="fa fa-calendar"></i> Choose range to filter
+              </h3>
+            </div>
+             <div class="card-body">
+                 <form class="row" method="POST" action="{{ url_for('individual_report')}}">
+                     <div class="col-md-3">
+                         <label class="text-success"><i class="fa fa-user"></i> Employee:</label>
+                         <select class="form-control employee"  name="employee" required>
+                             <option value="">Choose Employee</option>
+                              {% for emp in employees %}
+                                <option value="{{ emp.id }}">{{ emp.firstname }} {{ emp.lastname }}</option>
+                             {% endfor %}
+                         </select>
+                     </div>
+                     <div class="col-md-3">
+                         <label class="text-success"><i class="fa fa-calendar"></i> Start Date:</label>
+                         <input type="date" class="form-control start" value="{{ search.get('start') }}" name="start" placeholder="Start Date" required>
+                     </div>
+                     <div class="col-md-3">
+                         <label class="text-success"><i class="fa fa-calendar"></i> End Date:</label>
+                         <input type="date" class="form-control end" value="{{ search.get('end') }}" name="end" placeholder="End Date" required>
+                     </div>
+                      <div class="col-md-3">
+                          <br>
+                         <input type="submit" class="btn btn-success" style="min-width:200px" value="SEARCH">
+                     </div>
+                 </form>
+             </div>
+         </div>
+
+      <!-- Default box -->
+      <div class="card">
+          <div class="card-header">
+          <h3 class="card-title"></h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          </div>
+        <div class="card-body">
+
+             <table class="table table-striped">
+                 <thead>
+                  <th>Date</th>
+                  <th>Arrival</th>
+                  <th>Departure</th>
+                  <th>Duration</th>
+                  <th>Hours Worked</th>
+                 </thead>
+                 {% for rec in records %}
+                     <tr>
+                         <td>{{ rec.date }}</td>
+                         <td>{{ rec.arrival_time }}</td>
+                         <td>{{ rec.departure_time }}</td>
+                         <td>{{ rec.hours }}</td>
+                         <td>{{ rec.time_worked }} hrs</td>
+                     </tr>
+               {% endfor %}
+
+             </table>
+
+        </div>
+          <br>
+      </div>
+
+        <div class="card">
+          <div class="card-header">
+          <h3 class="card-title">Daily Summary</h3>
+
+              <div class="card-body">
+                  <canvas id="graph"  width="300"></canvas>
+              </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+
+      <!-- /.card -->
+
+    </section>
+
+<script src="{{ url_for('static',filename='plugins/chart.js/Chart.js') }}"></script>
+
+<script>
+
+    var start_date = $('.start').val();
+    var end_date = $('.end').val();
+    var employee = $('.employee').val();
+
+    var data = {
+       start: start_date,
+      end: end_date,
+      employee:employee
+    };
+
+    $.ajax({
+     type:'POST',
+     data:data,
+     url:'\general_graph',
+     success:function(response){
+       const labels = [];
+       const plots = [];
+       response.map(item=>{
+         console.log(item)
+         labels.push(item.date)
+         plots.push(parseFloat(item.hours))
+       });
+
+       const options ={
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title:{text:'Hours Worked',display:true}
+                },
+                y: {
+                    title:{text:'Date',display:true}
+                }
+            }
+        }
+
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'Total Hours Worked ',
+            backgroundColor: '#28a745',
+            borderColor: '#28a745',
+            data: plots,
+          }]
+        };
+       const config = {
+          type: 'bar',
+          data,
+          options: options
+        };
+       var ctx = document.getElementById('graph');
+       var myChart = new Chart(ctx,config);
+     }
+
+    });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <br>
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Live Attendance Feed</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row card-body justify-content-center">
+
+             <div class="col-md-6">
+                 <img class="img img-thumbnail" src="{{ url_for('get_feed') }}" alt="Loading..." width="100%">
+             </div>
+<!--            <div class="col-md-6">-->
+<!--                <a href="" class="btn btn-danger">-->
+<!--                   <i class="fas fa-stop"></i>  STOP CAMERA-->
+<!--                </a>-->
+<!--            </div>-->
+
+        </div>
+        <!-- /.card-body -->
+
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+
+{% endblock %}

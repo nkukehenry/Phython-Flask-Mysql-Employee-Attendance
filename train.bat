@@ -1,0 +1,1 @@
+ cd D:\Research Projects\robert\Face-recognition-project\source && D: && python train_model.py

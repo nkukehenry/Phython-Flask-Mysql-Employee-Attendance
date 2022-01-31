@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{%block content %}
+
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Add Employee</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ url_for('attendance') }}">Attendance</a></li>
+              <li class="breadcrumb-item active">Add Employee</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Create Employees</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+
+            <form class="row" method="POST" enctype="multipart/form-data" action="{{ url_for('add_employee') }}">
+
+                <div class="form-group col-md-6">
+                    <label>First Name</label>
+                    <input type="text" placeholder="First Name" name="firstname" class="form-control">
+                </div>
+
+                <div class="form-group col-md-6">
+                       <label>Last Name</label>
+                     <input type="text" placeholder="First Name" name="lastname" class="form-control">
+                </div>
+                 <div class="form-group col-md-6">
+                     <label>Department</label>
+                    <select placeholder="Department" name="department" class="form-control">
+                        <option>Accounts</option>
+                        <option>Customer Service</option>
+                        <option>Procurement</option>
+                        <option>Administration</option>
+                        <option>Risk & Compliance</option>
+                         <option>Marketting</option>
+                        <option>Information Tech</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Staff ID</label>
+                     <input type="text" placeholder="Staff ID No." name="staffid" class="form-control">
+                </div>
+                 <div class="form-group col-md-6">
+                     <label> Photo</label>
+                     <input type="file"  name="photo" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6 mt-2 text-center">
+                    <br>
+                      <input  class="btn btn-success btn2" type="submit" value="SAVE EMPLOYEE">
+                </div>
+            </form>
+
+
+        </div>
+        <!-- /.card-body -->
+
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+
+{% endblock %}
